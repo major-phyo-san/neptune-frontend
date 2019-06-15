@@ -1,0 +1,56 @@
+.md-button{
+    text-transform: capitalize !important;
+}
+
+md-toolbar.left-toolbar{
+    background: #156aebe8;
+}
+
+md-toolbar.main-toolbar{
+    background: #3033e4;
+}
+
+md-icon.app-icons{
+    margin: 5px;
+}
+
+p#hint-user{
+    margin-left: 5%;
+    font-size: 85%;
+    font-weight: 200%;
+    color: #156aebe8;
+}
+
+div.main-content{
+    margin-top: 10px;
+    margin-left: 50px;
+}
+
+md-list{
+    padding: 5px;
+}
+
+@media handheld{
+    md-card{
+        width: 120px;
+    }
+    .card-contents{
+        margin-left: 5px;
+    }
+}
+
+@media screen{
+    md-card{        
+        width: 720px;
+    }
+
+    div.card-contents{
+        justify-content: left;
+    }
+}
+
+/*table.country-list{
+    display: table-header-group;
+    border: #156aebe8;
+    border-spacing: 3px;
+}*/
