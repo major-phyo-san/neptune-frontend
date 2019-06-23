@@ -27,7 +27,8 @@ currencyApp.controller("mainController", function($scope, $mdSidenav){
     $scope.toggleLeftMenu = function()
     {
         $mdSidenav('left').toggle();
-    }
+    };
+
 });
 
 currencyApp.controller("getCountriesController", function($scope,$http){
@@ -49,11 +50,12 @@ currencyApp.controller("getCountriesController", function($scope,$http){
 });
 
 currencyApp.controller("historicalRatesController", function($scope,$http){
-
     $scope.responseObj = "";
     $scope.mode="";
     $scope.singleCountryMode = false;
     $scope.batchCountryMode = false;
+    $scope.allCountryMode = false;
+
     $scope.radioChanged = function(){
         $scope.responseObj = "";
         $scope.historyExchangeDate = "";
@@ -63,12 +65,21 @@ currencyApp.controller("historicalRatesController", function($scope,$http){
         {
             $scope.singleCountryMode = true;
             $scope.batchCountryMode = false;
+            $scope.allCountryMode = false;
         }
 
         if($scope.mode==="batch")
         {
             $scope.singleCountryMode = false;
             $scope.batchCountryMode = true;
+            $scope.allCountryMode = false;
+        }
+
+        if($scope.mode==="all")
+        {
+            $scope.singleCountryMode = false;
+            $scope.batchCountryMode = false;
+            $scope.allCountryMode = true;
         }
     };
 
@@ -98,7 +109,7 @@ currencyApp.controller("historicalRatesController", function($scope,$http){
         let countryCodesPart = "codes=";
         countryCodesPart += $scope.countryCodes;
 
-        $scope.baseUrl = "http://localhost:8000/api/currencies/history";
+        $scope.baseUrl = "http://localhost:8000/api/currencies/history/batch";
         $scope.baseUrl +="?"+$scope.datePart+"&"+countryCodesPart;
         console.log($scope.baseUrl);
         let req = {
@@ -130,6 +141,21 @@ currencyApp.controller("historicalRatesController", function($scope,$http){
         $scope.apiCall(req,$http);
     };
 
+    $scope.allHistoryRate = function() {
+        $scope.baseUrl = "";
+        $scope.baseUrl = "http://localhost:8000/api/currencies/history";
+        $scope.baseUrl += "?"+$scope.datePart;
+        let req = {
+            method: 'GET',
+            url: $scope.baseUrl,
+            headers: {
+                'Content-type': 'application/json',
+            }
+        };
+
+        $scope.apiCall(req,$http);
+    };
+
       $scope.apiCall = function(req,$http) {
         $http(req)
             .then(function successCallBack(response){
@@ -148,21 +174,31 @@ currencyApp.controller("latestRatesController", function($scope,$http){
     $scope.mode="";
     $scope.singleCountryMode = false;
     $scope.batchCountryMode = false;
+    $scope.allCountryMode = false;
+
     $scope.radioChanged = function(){
         $scope.responseObj = "";
-        $scope.historyExchangeDate = "";
         $scope.countryCode = "";
         $scope.countryCodes = "";
         if($scope.mode==="single")
         {
             $scope.singleCountryMode = true;
             $scope.batchCountryMode = false;
+            $scope.allCountryMode = false;
         }
 
         if($scope.mode==="batch")
         {
             $scope.singleCountryMode = false;
             $scope.batchCountryMode = true;
+            $scope.allCountryMode = false;
+        }
+
+        if($scope.mode==="all")
+        {
+            $scope.singleCountryMode = false;
+            $scope.batchCountryMode = false;
+            $scope.allCountryMode = true;
         }
     };
 
@@ -171,7 +207,7 @@ currencyApp.controller("latestRatesController", function($scope,$http){
         let countryCodesPart = "codes=";
         countryCodesPart += $scope.countryCodes;
 
-        $scope.baseUrl = "http://localhost:8000/api/currencies/latest";
+        $scope.baseUrl = "http://localhost:8000/api/currencies/latest/batch";
         $scope.baseUrl +="?"+countryCodesPart;
         console.log($scope.baseUrl);
         let req = {
@@ -192,6 +228,20 @@ currencyApp.controller("latestRatesController", function($scope,$http){
         $scope.baseUrl = "http://localhost:8000/api/currencies/latest/";
         $scope.baseUrl += countryCode;
         console.log($scope.baseUrl);
+        let req = {
+            method: 'GET',
+            url: $scope.baseUrl,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+
+        $scope.apiCall(req,$http);
+    };
+
+    $scope.allLatestRate = function(){
+        $scope.baseUrl = "";
+        $scope.baseUrl = "http://localhost:8000/api/currencies/latest";
         let req = {
             method: 'GET',
             url: $scope.baseUrl,
