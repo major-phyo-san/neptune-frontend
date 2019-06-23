@@ -2,3 +2,4 @@
 *.xml
 *.xml
 .idea/jsLinters/jshint.xml
+.idea/neptune-frontend.iml
