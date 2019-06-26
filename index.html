@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="app/angular-material-1.1.12/angular-material.css">
     <link rel="stylesheet" href="styles/material-design-icon-fonts/icon-font-include.css">
     <link rel="stylesheet" href="styles/mainstyle.css">
+    <link rel="stylesheet" href="app/angular-material-table-0.10.9/md-data-table.css">
     <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
 </head>
 
@@ -65,7 +66,7 @@
 
         <div layout="column" flex layout-align="start" class="main-content">
             <div class="app-description">
-                <p>You can get exchange rates and convert one currency from another</p>
+                <p style="color: #876800;">You can get exchange rates and convert one currency from another</p>
             </div>
             <div ng-view></div>
 
@@ -74,22 +75,28 @@
                 <div layout="column" flex>
                     <p>Below is the list of countries you can work with.<p>
                     <div layout="column" layout-align="center start" class="country-list">
-                        <table class="country-list">
-                            <tr>
-                                <th>Country Name</th>
-                                <th>Country Code</th>
-                                <th>Currency Name</th>
-                                <th>Currency Code</th>
-                                <th>Currency Symbol</th>
-                            </tr>
-                            <tr ng-repeat="country in countries">
-                                <td>{{country.country_name}}</td>
-                                <td>{{country.country_code}}</td>
-                                <td>{{country.currency_name}}</td>
-                                <td>{{country.currency_code}}</td>
-                                <td>{{country.currency_symbol}}</td>
-                            </tr>
-                        </table>
+                        <md-table-container>
+                            <table md-table class="country-list">
+                                <thead md-head>
+                                    <tr md-row>
+                                        <th md-column> <span class="table-headings">Country Name</span></th>
+                                        <th md-column> <span class="table-headings">Country Code</span> </th>
+                                        <th md-column> <span class="table-headings">Currency Name</span></th>
+                                        <th md-column> <span class="table-headings">Currency Code</span></th>
+                                        <th md-column> <span class="table-headings">Currency Symbol</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr md-row ng-repeat="country in countries">
+                                        <td md-cell>{{country.country_name}}</td>
+                                        <td md-cell>{{country.country_code}}</td>
+                                        <td md-cell>{{country.currency_name}}</td>
+                                        <td md-cell>{{country.currency_code}}</td>
+                                        <td md-cell>{{country.currency_symbol}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </md-table-container>
                     </div>
                 </div>              
             </script>
@@ -113,7 +120,7 @@
                                 <label style="margin-bottom: 20px;">Date of Exchange Rate</label>
                                 <md-datepicker ng-model="historyExchangeDate" ng-change="dateChanged()" aria-label="historyDate"></md-datepicker>
                             </md-input-container>
-                            <md-button class="md-raised" ng-click="batchHistoryRate()" style="width: 150px;">Get exchange rates</md-button>
+                            <md-button class="md-raised get-buttons" ng-click="batchHistoryRate()" style="color: #52c41a;width: 150px;">Get exchange rates</md-button>
                         </div>
 
                         <div layout="column" ng-show="singleCountryMode">
@@ -125,7 +132,7 @@
                                 <label style="margin-bottom: 20px;">Date of Exchange Rate</label>
                                 <md-datepicker ng-model="historyExchangeDate" ng-change="dateChanged()" aria-label="historyDate"></md-datepicker>
                             </md-input-container>
-                            <md-button class="md-raised" ng-click="singleHistoryRate()" style="width: 150px;">Get exchange rate</md-button>
+                            <md-button class="md-raised get-buttons" ng-click="singleHistoryRate()" style="color: #52c41a;width: 150px;">Get exchange rate</md-button>
                         </div>
 
                         <div layout="column" ng-show="allCountryMode">
@@ -133,7 +140,7 @@
                                 <label style="margin-bottom: 20px;">Date of Exchange Rate</label>
                                 <md-datepicker ng-model="historyExchangeDate" ng-change="dateChanged()" aria-label="historyDate"></md-datepicker>
                             </md-input-container>
-                            <md-button class="md-raised" ng-click="allHistoryRate()" style="width: 160px;">Get all exchange rates</md-button>
+                            <md-button class="md-raised get-buttons" ng-click="allHistoryRate()" style="color: #52c41a;width: 160px;">Get all exchange rates</md-button>
                         </div>
 
                     </div>
@@ -290,7 +297,7 @@
                                 <label>Currency Codes (separate with commas)</label>
                                 <input type="text" ng-model="countryCodes">
                             </md-input-container>
-                            <md-button class="md-raised" ng-click="batchLatestRate()" style="width: 150px;">Get exchange rates</md-button>
+                            <md-button class="md-raised" ng-click="batchLatestRate()" style="color: #52c41a;width: 150px;">Get exchange rates</md-button>
                         </div>
 
                         <div layout="column" ng-show="singleCountryMode">
@@ -298,11 +305,11 @@
                                 <label>Currency Code</label>
                                 <input type="text" ng-model="countryCode">
                             </md-input-container>
-                            <md-button class="md-raised" ng-click="singleLatestRate()" style="width: 150px;">Get exchange rate</md-button>
+                            <md-button class="md-raised" ng-click="singleLatestRate()" style="color: #52c41a;width: 150px;">Get exchange rate</md-button>
                         </div>
 
                         <div layout="column" ng-show="allCountryMode">
-                            <md-button class="md-raised" ng-click="allLatestRate()" style="width: 160px;">Get all exchange rates</md-button>
+                            <md-button class="md-raised" ng-click="allLatestRate()" style="color: #52c41a;width: 160px;">Get all exchange rates</md-button>
                         </div>
                     </div>
                     <div ng-show="batchCountryMode" class="rate-results">
@@ -465,6 +472,12 @@
                         <md-button ng-click="convertCurrencies()" class="md-raised md-primary" style="width: 150px;">Convert</md-button>
                     </div>
                     <div layout="column" flex style="margin-left: 40px;">
+                        <div layout="column" class="convert-result">
+                            <p style="color: #9254de;">Conversion from: <strong>{{responseObj.convert.from}}</strong></p>
+                            <p style="color: #9254de;">Conversion to: <strong>{{responseObj.convert.to}}</strong></p>
+                            <p style="color: #9254de;">Conversion amount: <strong>{{responseObj.convert.amount}}</strong></p>
+                            <p style="color: #9254de;">Conversion result: <strong>{{responseObj.convert.result}}</strong></p>
+                        </div>
                         <div class="meta-info">
                             <table ng-show="responseObj">
                                 <tr>
@@ -482,12 +495,7 @@
                                     <td>{{responseObj.base}}</td>
                                 </tr>
                             </table>
-                            <div layout="column" class="convert-result">
-                                <p>Conversion from: <strong>{{responseObj.convert.from}}</strong></p>
-                                <p>Conversion to: <strong>{{responseObj.convert.to}}</strong></p>
-                                <p>Conversion amount: <strong>{{responseObj.convert.amount}}</strong></p>
-                                <p>Conversion result: <strong>{{responseObj.convert.result}}</strong></p>
-                            </div>
+                        </div>
                     </div>
                 </div>
             </script>
@@ -506,6 +514,7 @@
 
 <!-- Angular Material Libraries-->
 <script src="app/angular-material-1.1.12/angular-material.js"></script>
+<script src="app/angular-material-table-0.10.9/md-data-table.js"></script>
 
 <!-- Application bootstrap-->
 <script src="app/currencyApp.js"></script>

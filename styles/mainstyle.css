@@ -3,12 +3,11 @@
 }
 
 md-toolbar.left-toolbar{
-    background: #239aeb;
+    background: #40a9ff;
 }
 
 md-toolbar.main-toolbar{
     background: #156aeb;
-
 }
 
 md-icon.app-icons{
@@ -45,10 +44,12 @@ div.rate-results{
     margin-bottom: 50px;
 }
 
-table.country-list{
-    display: table-header-group;
-    border: #156aebe8;
-    border-spacing: 3px;
+span.table-headings{
+    color:#9e1068;
+}
+
+md-radio-button{
+    color: #9254de;
 }
 
 table.meta-info-table{
@@ -57,6 +58,14 @@ table.meta-info-table{
 }
 md-list{
     padding: 5px;
+}
+
+md-card{
+    background: #f6ffed;
+}
+
+md-card-header-text {
+    color: #a0d911;
 }
 
 @media handheld{
@@ -74,8 +83,7 @@ md-list{
         marign-top: 10px;
     }
     md-card{        
-        width: 720px;
-        background: #c9f2d9;
+        width: 580px;
     }
 
     div.card-contents{

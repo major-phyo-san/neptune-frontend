@@ -1,4 +1,4 @@
-var currencyApp = angular.module("currencyApp",['ngMaterial','ngMessages','ngRoute']);
+var currencyApp = angular.module("currencyApp",['ngMaterial','ngMessages','ngRoute','md.data.table']);
 
 currencyApp.config(['$routeProvider', function($routeProvider){
     $routeProvider
@@ -32,6 +32,7 @@ currencyApp.controller("mainController", function($scope, $mdSidenav){
 });
 
 currencyApp.controller("getCountriesController", function($scope,$http){
+    $scope.selected = [];
     let url = "http://localhost:8000/api/countries";
     let req = {
         method: 'GET',
@@ -269,7 +270,7 @@ currencyApp.controller("latestRatesController", function($scope,$http){
 currencyApp.controller("currencyConvertController", function($scope,$http){
     $scope.fromCode = "";
     $scope.toCode = "";
-    $scope.convertAmount = 0.0;
+    $scope.convertAmount = 1.0;
 
     $scope.convertCurrencies = function () {
         if($scope.convertDate)
