@@ -1,4 +1,5 @@
 var currencyApp = angular.module("currencyApp",['ngMaterial','ngMessages','ngRoute','md.data.table']);
+currencyApp.value("hostUrl", "http://192.168.1.20:8000");
 
 currencyApp.config(['$routeProvider', function($routeProvider){
     $routeProvider
@@ -31,9 +32,9 @@ currencyApp.controller("mainController", function($scope, $mdSidenav){
 
 });
 
-currencyApp.controller("getCountriesController", function($scope,$http){
+currencyApp.controller("getCountriesController", function($scope,$http,hostUrl){
     $scope.selected = [];
-    let url = "http://localhost:8000/api/countries";
+    let url = hostUrl + "/api/countries";
     let req = {
         method: 'GET',
         url: url,
@@ -50,7 +51,7 @@ currencyApp.controller("getCountriesController", function($scope,$http){
     });
 });
 
-currencyApp.controller("historicalRatesController", function($scope,$http){
+currencyApp.controller("historicalRatesController", function($scope,$http,hostUrl){
     $scope.responseObj = "";
     $scope.mode="";
     $scope.singleCountryMode = false;
@@ -110,7 +111,7 @@ currencyApp.controller("historicalRatesController", function($scope,$http){
         let countryCodesPart = "codes=";
         countryCodesPart += $scope.countryCodes;
 
-        $scope.baseUrl = "http://localhost:8000/api/currencies/history/batch";
+        $scope.baseUrl = hostUrl + "/api/currencies/history/batch";
         $scope.baseUrl +="?"+$scope.datePart+"&"+countryCodesPart;
         console.log($scope.baseUrl);
         let req = {
@@ -128,7 +129,7 @@ currencyApp.controller("historicalRatesController", function($scope,$http){
         $scope.baseUrl = "";
         let countryCode = $scope.countryCode;
 
-        $scope.baseUrl = "http://localhost:8000/api/currencies/history/";
+        $scope.baseUrl = hostUrl + "/api/currencies/history/";
         $scope.baseUrl += countryCode +"?"+ $scope.datePart;
         console.log($scope.baseUrl);
         let req = {
@@ -144,7 +145,7 @@ currencyApp.controller("historicalRatesController", function($scope,$http){
 
     $scope.allHistoryRate = function() {
         $scope.baseUrl = "";
-        $scope.baseUrl = "http://localhost:8000/api/currencies/history";
+        $scope.baseUrl = hostUrl + "/api/currencies/history";
         $scope.baseUrl += "?"+$scope.datePart;
         let req = {
             method: 'GET',
@@ -170,7 +171,7 @@ currencyApp.controller("historicalRatesController", function($scope,$http){
 
 });
 
-currencyApp.controller("latestRatesController", function($scope,$http){
+currencyApp.controller("latestRatesController", function($scope,$http,hostUrl){
     $scope.responseObj = "";
     $scope.mode="";
     $scope.singleCountryMode = false;
@@ -208,7 +209,7 @@ currencyApp.controller("latestRatesController", function($scope,$http){
         let countryCodesPart = "codes=";
         countryCodesPart += $scope.countryCodes;
 
-        $scope.baseUrl = "http://localhost:8000/api/currencies/latest/batch";
+        $scope.baseUrl = hostUrl + "/api/currencies/latest/batch";
         $scope.baseUrl +="?"+countryCodesPart;
         console.log($scope.baseUrl);
         let req = {
@@ -226,7 +227,7 @@ currencyApp.controller("latestRatesController", function($scope,$http){
         $scope.baseUrl = "";
         let countryCode = $scope.countryCode;
 
-        $scope.baseUrl = "http://localhost:8000/api/currencies/latest/";
+        $scope.baseUrl = hostUrl + "/api/currencies/latest/";
         $scope.baseUrl += countryCode;
         console.log($scope.baseUrl);
         let req = {
@@ -242,7 +243,7 @@ currencyApp.controller("latestRatesController", function($scope,$http){
 
     $scope.allLatestRate = function(){
         $scope.baseUrl = "";
-        $scope.baseUrl = "http://localhost:8000/api/currencies/latest";
+        $scope.baseUrl = hostUrl + "/api/currencies/latest";
         let req = {
             method: 'GET',
             url: $scope.baseUrl,
@@ -267,7 +268,7 @@ currencyApp.controller("latestRatesController", function($scope,$http){
 
 });
 
-currencyApp.controller("currencyConvertController", function($scope,$http){
+currencyApp.controller("currencyConvertController", function($scope,$http,hostUrl){
     $scope.fromCode = "";
     $scope.toCode = "";
     $scope.convertAmount = 1.0;
@@ -294,7 +295,7 @@ currencyApp.controller("currencyConvertController", function($scope,$http){
             $scope.datePart = "&date="+year+"-"+month+"-"+day;
         }
 
-        $scope.baseUrl = "http://localhost:8000/api/currencies/convert?";
+        $scope.baseUrl = hostUrl + "/api/currencies/convert?";
         let toPart = "to="+$scope.toCode;
         let fromPart = "&from="+$scope.fromCode;
         let amountPart = "&amount="+$scope.convertAmount;
